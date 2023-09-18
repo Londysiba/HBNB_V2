@@ -19,7 +19,7 @@ if storage_t == 'db':
                                  ForeignKey('amenities.id'),
                                  primary_key=True, nullable=False))
 
-class Place(BaseModel):
+class Place(BaseModel, Base):
     """ A place to stay """
     __tablename__ = "places"
     if storage_t == 'db':

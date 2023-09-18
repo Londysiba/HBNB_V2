@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """ Review module for the HBNB project """
 from models.base_model import BaseModel
+from models.base_model import Base
 from sqlalchemy import Column, String
 from sqlalchemy.sql.schema import ForeignKey
 from os import getenv
@@ -8,7 +9,7 @@ from os import getenv
 storage_type = getenv("HBNB_TYPE_STORAGE")
 
 
-class Review(BaseModel):
+class Review(BaseModel, Base):
     """ Review classto store review information """
     if storage_type == 'db':
         __tablename__ = "reviews"
