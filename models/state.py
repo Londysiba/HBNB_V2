@@ -9,7 +9,7 @@ from models.city import City
 
 class State(BaseModel):
     """ State class """
-    __tablename__ = 'cities'
+    __tablename__ = 'states'
     name = Column(String(128), nullable=False)
     
     if models.storage_t == "db":
