@@ -1,30 +1,28 @@
 #!/usr/bin/python3
-"""This module defines a class User"""
-from models.base_model import BaseModel
+"""Defines the User class."""
 from models.base_model import Base
-import models
-from os import getenv
-import sqlalchemy
-from sqlalchemy import Column, String
+from models.base_model import BaseModel
+from sqlalchemy import Column
+from sqlalchemy import String
 from sqlalchemy.orm import relationship
 
 
 class User(BaseModel, Base):
-    """This class defines a user by various attributes"""
-    if models.storage_t == 'db':
-        __tablename__ = 'users'
-        email = Column(String(length=128), nullable=False)
-        password = Column(String(length=128), nullable=False)
-        first_name = Column(String(length=128), nullable=True)
-        last_name = Column(String(length=128), nullable=True)
-        places = relationship("Place", backref="user")
-        reviews = relationship("Review", backref="user")
-    else:
-        email = ''
-        password = ''
-        first_name = ''
-        last_name = ''
+    """Blueprint for a User Table in the hbnb database
 
-    def __init__(self, *args, **kwargs):
-        """initializes user"""
-        super().__init__(*args, **kwargs)
+    Attributes <PUBLIC>:
+        __tablename__ (str): The name of the MySQL table to store users.
+        email (sqlalchemy.String): The user's email address.
+        password (sqlalchemy.String): The user's password.
+        first_name (sqlalchemy.String): The user's first name.
+        last_name (sqlalchemy.String): The user's last name.
+        places (sqlalchemy.Relationship): The User<->Place relationship.
+        reviews (sqlalchemy.Relationship): The User<->Review relationship.
+    """
+    __tablename__ = "users"
+    email = Column(String(128), nullable=False)
+    password = Column(String(128), nullable=False)
+    first_name = Column(String(128))
+    last_name = Column(String(128))
+    places = relationship("Place", backref="user", cascade="delete")
+    reviews = relationship("Review", backref="user", cascade="delete")

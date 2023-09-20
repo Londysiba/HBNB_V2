@@ -1,13 +1,22 @@
 #!/usr/bin/python3
-""" State Module for HBNB project """
-from models.base_model import BaseModel
+"""Defines the Amenity class."""
 from models.base_model import Base
-from sqlalchemy import Column, String
-from os import getenv
+from models.base_model import BaseModel
+from sqlalchemy import Column
+from sqlalchemy import String
+from sqlalchemy.orm import relationship
 
-storage_t = getenv("HBNB_TYPE_STORAGE")
 
 class Amenity(BaseModel, Base):
-    """ Amenity class """
-    __tablename__ = 'amenities'
-    name = Column(String(length=128), nullable=False)
+    """Blueprint for a Review Table in the hbnb database
+
+    Attributes <PUBLIC>:
+        __tablename__ (str): The name of the MySQL table that tracks Amenities.
+        name (sqlalchemy.String): The name of the city
+        places_amenities (sqlalchemy.Relationship): Entails many-to-many
+        relationship with a place
+    """
+    __tablename__ = "amenities"
+    name = Column(String(128), nullable=False)
+    place_amenities = relationship("Place", secondary="place_amenity",
+                                   viewonly=False, overlaps='place_amenities')
