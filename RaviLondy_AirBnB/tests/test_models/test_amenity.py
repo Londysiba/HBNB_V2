@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""Defines unnittests for models/amenity.py."""
+"""Unnittests cases for models/amenity.py."""
 import os
 import pep8
 import models

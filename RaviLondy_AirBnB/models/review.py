@@ -1,12 +1,12 @@
 #!/usr/bin/python3
-"""Defines the Review class."""
+"""Review module for the HBNB project"""
 from models.base_model import Base, BaseModel
 from sqlalchemy import Column, ForeignKey, String
 from sqlalchemy.orm import relationship
 
 
 class Review(BaseModel, Base):
-    """Blueprint for a Review Table in the hbnb database"""
+    """Design plan for a review table within the hbnb database"""
     __tablename__ = "reviews"
     text = Column(String(1024),
                   nullable=False)

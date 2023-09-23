@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""Defines the Place class."""
+"""Place Module for HBNB project"""
 import models
 from os import getenv
 from models.base_model import Base, BaseModel
@@ -25,7 +25,7 @@ association_table = Table(
 
 
 class Place(BaseModel, Base):
-    """Blueprint for a Place Table in the hbnb database"""
+    """Design plan for a review table within the hbnb database"""
     __tablename__ = "places"
     city_id = Column(String(60), ForeignKey("cities.id"), nullable=False)
     user_id = Column(String(60), ForeignKey("users.id"), nullable=False)
@@ -45,13 +45,13 @@ class Place(BaseModel, Base):
     if getenv("HBNB_TYPE_STORAGE", None) != "db":
         @property
         def reviews(self):
-            """returns a list of all linked Reviews."""
+            """returns all Reviews."""
             return [review for review in models.storage.all(Review).values()
                     if review.place_id == self.id]
 
         @property
         def amenities(self):
-            """get list of amenities objects"""
+            """get list of all the amenities objects"""
             amenity_list = []
             for amenity in models.storage.all(Amenity).values():
                 if amenity.id in self.amenity_ids:

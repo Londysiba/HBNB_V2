@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""Defines the DBStorage engine."""
+"""Defines the database Storage engine."""
 from os import getenv
 from models.base_model import Base, BaseModel
 from models.amenity import Amenity
@@ -19,7 +19,7 @@ class DBStorage:
     __session = None
 
     def __init__(self):
-        """Initialize a new DBStorage instance."""
+        """Initialize a new database storage instance."""
         self.__engine = create_engine(
             "mysql+mysqldb://{}:{}@{}/{}".
             format(getenv("HBNB_MYSQL_USER"), getenv("HBNB_MYSQL_PWD"),
@@ -29,7 +29,7 @@ class DBStorage:
             Base.metadata.drop_all(self.__engine)
 
     def all(self, cls=None):
-        """Query on the curret database session all objects of the given class
+        """Retrieve all objects from the current database  session using a query
         """
         if cls is None:
             objs = self.__session.query(State).all()
@@ -45,11 +45,11 @@ class DBStorage:
         return {"{}.{}".format(type(ob).__name__, ob.id): ob for ob in objs}
 
     def new(self, obj):
-        """Add obj to the current database session."""
+        """Adds a new obj to the current database session."""
         self.__session.add(obj)
 
     def save(self):
-        """Commit all changes to the current database session."""
+        """Save all changes to the current database session."""
         self.__session.commit()
 
     def delete(self, obj=None):
@@ -58,7 +58,7 @@ class DBStorage:
             self.__session.delete(obj)
 
     def reload(self):
-        """Create all tables in the database"""
+        """Reload all tables in the database"""
         Base.metadata.create_all(self.__engine)
         session_init = sessionmaker(bind=self.__engine,
                                     expire_on_commit=False)

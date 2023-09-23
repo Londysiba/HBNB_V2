@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""Defines the AirBnB console."""
+""" Console Module """
 import cmd
 from shlex import split
 from models import storage
@@ -13,7 +13,7 @@ from models.review import Review
 
 
 class HBNBCommand(cmd.Cmd):
-    """Defines the AirBnB interpreter."""
+    """ Functionality for the HBNB console """
 
     prompt = "(hbnb) "
     __classes = {
@@ -27,16 +27,16 @@ class HBNBCommand(cmd.Cmd):
         pass
 
     def do_quit(self, line):
-        """Quit command to exit the program."""
+        """Function to exit the HBNB console"""
         return True
 
     def do_EOF(self, line):
-        """EOF signal to exit the program."""
+        """Handles the EOF to exit the program"""
         print("")
         return True
 
     def do_create(self, args):
-        """ Create an object of any class with parameters"""
+        """ Function to Create an object of any class with given parameters"""
         args = args.split()
         if not args:
             print("** class name missing **")
@@ -72,7 +72,7 @@ class HBNBCommand(cmd.Cmd):
         new_instance.save()
 
     def do_show(self, line):
-        """Prints the string representation of an instance"""
+        """Method to show an object"""
         try:
             if not line:
                 raise SyntaxError()
@@ -97,7 +97,7 @@ class HBNBCommand(cmd.Cmd):
             print("** no instance found **")
 
     def do_destroy(self, line):
-        """Deletes an instance based on the class name and id"""
+        """Deletes a specified object"""
         try:
             if not line:
                 raise SyntaxError()
@@ -140,7 +140,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
 
     def do_update(self, line):
-        """Updates an instanceby adding or updating attribute"""
+        """Updates an instanceby updating a class"""
         try:
             if not line:
                 raise SyntaxError()
@@ -177,7 +177,7 @@ class HBNBCommand(cmd.Cmd):
             print("** value missing **")
 
     def count(self, line):
-        """count the number of instances of a class"""
+        """Count current number of class instances"""
         counter = 0
         try:
             my_list = split(line, " ")
@@ -211,7 +211,7 @@ class HBNBCommand(cmd.Cmd):
         return " ".join(i for i in new_list)
 
     def default(self, line):
-        """retrieve all instances of a class and
+        """retrieves the instances of a class and
         retrieve the number of instances
         """
         my_list = line.split('.')

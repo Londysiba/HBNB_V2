@@ -1,12 +1,12 @@
 #!/usr/bin/python3
-"""Defines the City class."""
+"""City Module for HBNB project"""
 from models.base_model import Base, BaseModel
 from sqlalchemy import Column, ForeignKey, String
 from sqlalchemy.orm import relationship
 
 
 class City(BaseModel, Base):
-    """Blueprint for a Review Table in the hbnb database"""
+    """Design plan for a review table within the hbnb database"""
     __tablename__ = "cities"
     name = Column(String(128),
                   nullable=False)

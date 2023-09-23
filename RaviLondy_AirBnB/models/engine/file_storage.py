@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""Defines the FileStorage class."""
+"""This module defines a class to manage file storage for hbnb clone"""
 import json
 from models.base_model import BaseModel
 from models.amenity import Amenity
@@ -11,14 +11,14 @@ from models.user import User
 
 
 class FileStorage:
-    """Represent an abstracted storage engine.
+    """This class manages storage of hbnb models in JSON format
     """
 
     __file_path = "file.json"
     __objects = {}
 
     def all(self, cls=None):
-        """Return a dictionary of instantiated objects in __objects.
+        """Returns a dictionary of models currently in storage
         """
         if cls is not None:
             if type(cls) == str:
@@ -31,17 +31,17 @@ class FileStorage:
         return self.__objects
 
     def new(self, obj):
-        """Set in __objects obj with key <obj_class_name>.id."""
+        """Adds new object to storage dictionary"""
         self.__objects["{}.{}".format(type(obj).__name__, obj.id)] = obj
 
     def save(self):
-        """Serialize __objects to the JSON file __file_path."""
+        """Saves storage dictionary to file"""
         odict = {o: self.__objects[o].to_dict() for o in self.__objects.keys()}
         with open(self.__file_path, "w", encoding="utf-8") as f:
             json.dump(odict, f)
 
     def reload(self):
-        """Deserialize the JSON file __file_path to __objects, if it exists."""
+        """Loads storage dictionary from file"""
         try:
             with open(self.__file_path, "r", encoding="utf-8") as file:
                 for obj in json.load(file).values():
