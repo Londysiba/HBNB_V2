@@ -27,12 +27,13 @@ class BaseModel:
         """Initialize a new BaseModel."""
         self.id = str(uuid4())
         self.created_at = self.updated_at = datetime.utcnow()
-        if kwargs:
-            for key, value in kwargs.items():
-                if key == "created_at" or key == "updated_at":
-                    value = datetime.strptime(value, "%Y-%m-%dT%H:%M:%S.%f")
-                if key != "__class__":
-                    setattr(self, key, value)
+        if kwargs is not None or kwargs != {}:
+            item_list = kwargs.items()
+            for k, v in item_list:
+                if k == "created_at" or k == "updated_at":
+                    v = datetime.strptime(v, "%Y-%m-%dT%H:%M:%S.%f")
+                if k != "__class__":
+                    setattr(self, k, v)
 
     def save(self):
         """Update updated_at with the current datetime."""
@@ -42,11 +43,11 @@ class BaseModel:
 
     def to_dict(self):
         """Return a dictionary representation of the BaseModel instance."""
-        my_dict = self.__dict__.copy()
-        my_dict["__class__"] = str(type(self).__name__)
+        my_dict = {key: value for key, value in self.__dict__.items()
+                   if key != "_sa_instance_state"}
+        my_dict["__class__"] = self.__class__.__name__
         my_dict["created_at"] = self.created_at.isoformat()
         my_dict["updated_at"] = self.updated_at.isoformat()
-        my_dict.pop("_sa_instance_state", None)
         return my_dict
 
     def delete(self):

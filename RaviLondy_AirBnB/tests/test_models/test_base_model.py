@@ -13,8 +13,7 @@ class TestBaseModel(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        """BaseModel testing setup.
-        """
+        """BaseModel testing setup."""
         try:
             os.rename("file.json", "tmp")
         except IOError:
