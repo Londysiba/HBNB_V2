@@ -60,7 +60,7 @@ class TestUser(unittest.TestCase):
             cls.dbstorage._DBStorage__session.close()
             del cls.dbstorage
 
-    def test_pep8_styling(self):
+    def test_style_if_pep8(self):
         """Test pep8 styling."""
         style = pep8.StyleGuide(quiet=True)
         p = style.check_files(["models/user.py"])

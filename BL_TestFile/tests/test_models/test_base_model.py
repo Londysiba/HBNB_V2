@@ -38,7 +38,7 @@ class TestBaseModel(unittest.TestCase):
         del cls.storage
         del cls.base
 
-    def test_pep8_styling(self):
+    def test_style_if_pep8(self):
         """Test pep8 styling."""
         style = pep8.StyleGuide(quiet=True)
         results = style.check_files(["models/base_model.py"])
